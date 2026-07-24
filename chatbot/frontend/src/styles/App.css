@@ -1,0 +1,145 @@
+.app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 32px 24px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--brand-lighter) 0%, transparent 100%);
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.app-header p {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px 120px;
+}
+
+.builder-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.builder-card h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.builder-card .subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+
+.builder-card .subtitle code {
+  background: var(--brand-lightest);
+  color: var(--text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.icon-picker {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.icon-option:hover {
+  background: var(--brand-lightest);
+  transform: translateY(-1px);
+}
+
+.icon-option.selected {
+  background: var(--brand-lighter);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(198, 180, 255, 0.35);
+}
+
+.icon-option-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.icon-option-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.saved-badge {
+  font-size: 0.85rem;
+  color: var(--brand-darkest);
+  font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-footer-note {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--brand-lightest);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
