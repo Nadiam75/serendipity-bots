@@ -8,18 +8,26 @@ from app.schemas import ChatMessage
 
 
 def build_input_items(user_messages: list[ChatMessage]) -> list[dict[str, str]]:
-    """Build AvalAI `input` items; ignore client system messages."""
-    input_items: list[dict[str, str]] = []
+    """Build chat messages; ignore client system messages (server owns system prompt)."""
+    items: list[dict[str, str]] = []
     for m in user_messages:
         if m.role == "system":
             continue
-        input_items.append({"role": m.role, "content": m.content})
-    return input_items
+        items.append({"role": m.role, "content": m.content})
+    return items
 
 
-def build_chat_request(user_messages: list[ChatMessage]) -> tuple[str, list[dict[str, str]]]:
-    """Default teacher chat: fixed instructions + input history."""
-    return TEACHER_SYSTEM_PROMPT, build_input_items(user_messages)
+def _build_messages(
+    *,
+    instructions: str,
+    input: str | list[dict[str, str]],
+) -> list[dict[str, str]]:
+    messages: list[dict[str, str]] = [{"role": "system", "content": instructions}]
+    if isinstance(input, str):
+        messages.append({"role": "user", "content": input})
+    else:
+        messages.extend(input)
+    return messages
 
 
 async def create_response(
@@ -27,13 +35,15 @@ async def create_response(
     model: str,
     instructions: str,
     input: str | list[dict[str, str]],
+    max_output_tokens: int | None = None,
 ) -> dict[str, Any]:
-    """Call AvalAI `/v1/responses`."""
-    url = f"{settings.avalai_base_url.rstrip('/')}/responses"
+    """Call AvalAI `/v1/chat/completions` (instructions → system message)."""
+    url = f"{settings.avalai_base_url.rstrip('/')}/chat/completions"
+    token_limit = max_output_tokens if max_output_tokens is not None else settings.max_output_tokens
     payload: dict[str, Any] = {
         "model": model,
-        "instructions": instructions,
-        "input": input,
+        "messages": _build_messages(instructions=instructions, input=input),
+        "max_completion_tokens": token_limit,
     }
     headers = {
         "Authorization": f"Bearer {settings.avalai_api_key}",
@@ -51,17 +61,30 @@ async def chat_completions(
     model: str,
     messages: list[ChatMessage],
     instructions: str | None = None,
+    max_output_tokens: int | None = None,
 ) -> dict[str, Any]:
     system = instructions or TEACHER_SYSTEM_PROMPT
     return await create_response(
         model=model,
         instructions=system,
         input=build_input_items(messages),
+        max_output_tokens=max_output_tokens,
     )
 
 
 def extract_assistant_text(data: dict[str, Any]) -> tuple[str, str | None]:
-    """Return (content, finish_reason) from AvalAI Responses payload."""
+    """Return (content, finish_reason) from chat/completions or legacy responses payload."""
+    choices = data.get("choices")
+    if isinstance(choices, list) and choices:
+        choice = choices[0]
+        if isinstance(choice, dict):
+            message = choice.get("message")
+            if isinstance(message, dict):
+                content = message.get("content")
+                if isinstance(content, str) and content.strip():
+                    finish = choice.get("finish_reason")
+                    return content, finish if isinstance(finish, str) else "stop"
+
     output_text = data.get("output_text")
     if isinstance(output_text, str) and output_text.strip():
         status = data.get("status")

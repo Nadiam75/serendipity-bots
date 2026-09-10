@@ -1,45 +1,44 @@
 # Elementary school chatbot API
 
-FastAPI service that speaks to children in **Persian** (Farsi) with a fixed **teacher** persona (ages 7–10). It forwards requests to [AvalAI](https://api.avalai.ir) `/v1/responses` and injects a server-side system prompt so behavior stays consistent.
-
-## Why an API?
-
-Yes—**a small backend API is the right approach** for a children’s web app: the AvalAI **API key stays on the server**, you can add auth/rate limits/logging later, and the frontend only calls your URL.
+FastAPI service for a Persian elementary learning app (ages 7–10). It exposes chat bots, answer assessment, exercise generation, and fun facts. All AI calls go through [AvalAI](https://api.avalai.ir); the API key stays on the server.
 
 ## Setup
 
 ```bash
 cd serendipity
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
-# Edit .env and set AVALAI_API_KEY
+# Set AVALAI_API_KEY in .env
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 - Health: `GET http://localhost:8000/health`
-- Bots list: `GET http://localhost:8000/v1/bots`
-- Assess: `POST http://localhost:8000/v1/bots/assess`
-- Chat bots: `POST http://localhost:8000/v1/bots/{teacher|story}/chat`
-- Legacy: `POST /v1/chat/completions`, `POST /v1/assess`
+- Interactive docs: `http://localhost:8000/docs`
+- **Full API reference (request/response samples):** [docs/API.md](docs/API.md)
+- **Deploy to VPS:** [docs/DEPLOY.md](docs/DEPLOY.md)
 
-## Request shape (OpenAI-compatible client API)
+## Endpoints (summary)
 
-Your app still posts to `/v1/chat/completions`; the server maps that to AvalAI Responses (`instructions` + `input`). Default model is `deepseek-v4-flash` (`DEFAULT_MODEL`).
+| Method | Path | Purpose |
+|--------|------|---------|
+| `GET` | `/health` | Liveness |
+| `GET` | `/v1/contracts` | Question types & examples (`contracts.json`) |
+| `GET` | `/v1/bots` | List bots |
+| `POST` | `/v1/bots/teacher/chat` | Teacher chat |
+| `POST` | `/v1/bots/story/chat` | Story chat |
+| `POST` | `/v1/bots/assess` | Assess child answer |
+| `POST` | `/v1/bots/generate-exercises` | Generate similar exercises |
+| `POST` | `/v1/bots/fun-fact` | Fun fact from interests |
 
-```json
-{
-  "model": "deepseek-v4-flash",
-  "messages": [
-    { "role": "user", "content": "سلام!" }
-  ]
-}
-```
+Legacy: `POST /v1/chat/completions`, `POST /v1/assess`, `POST /v1/fun-fact`
 
-**Note:** Client `system` messages are ignored so the teacher persona cannot be overridden from the client.
+## Contracts
+
+Question shapes (`mcq_single`, `mcq_multi`, `open_question`, `image_mcq`) are defined in [`contracts.json`](contracts.json). The API serves them at `GET /v1/contracts` and uses them in assess/generate request and response bodies.
 
 ## Security
 
-- Rotate any API key that was exposed in chat or version control; use only `AVALAI_API_KEY` in `.env` on the server.
-- Before production, restrict CORS (`allow_origins`) to your real web app origin instead of `*`.
+- Keep `AVALAI_API_KEY` only in `.env` on the server.
+- Restrict CORS (`allow_origins`) to your production web app origin before go-live.

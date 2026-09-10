@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.1",
+  "question_modes": {
+    "convergent": {
+      "label_fa": "همگرا",
+      "description_fa": "سؤال با گزینه و پاسخ مشخص (چندگزینه‌ای)",
+      "layouts": ["multiple_choice", "image_multiple_choice"]
+    },
+    "divergent": {
+      "label_fa": "واگرا",
+      "description_fa": "سؤال باز و تشریحی",
+      "layouts": ["question"]
+    }
+  },
+  "question_types": [
+    {
+      "id": "mcq_single",
+      "label_fa": "چندگزینه‌ای (یک پاسخ)",
+      "question_mode": "convergent",
+      "layout": "multiple_choice",
+      "exercise_type": "mcq",
+      "min_selections": 1,
+      "max_selections": 1,
+      "recommended_bot": "story",
+      "assess_mode": "mcq"
+    },
+    {
+      "id": "mcq_multi",
+      "label_fa": "چند انتخابی متنی",
+      "question_mode": "convergent",
+      "layout": "multiple_choice",
+      "exercise_type": "mcq",
+      "min_selections": 1,
+      "max_selections": null,
+      "recommended_bot": "story",
+      "assess_mode": "mcq"
+    },
+    {
+      "id": "open_question",
+      "label_fa": "تشریحی",
+      "question_mode": "divergent",
+      "layout": "question",
+      "exercise_type": null,
+      "recommended_bot": "teacher",
+      "assess_mode": "open"
+    },
+    {
+      "id": "image_mcq",
+      "label_fa": "تصویری",
+      "question_mode": "convergent",
+      "layout": "image_multiple_choice",
+      "exercise_type": "mcq",
+      "min_selections": null,
+      "max_selections": null,
+      "recommended_bot": "story",
+      "assess_mode": "mcq"
+    }
+  ],
+  "examples": [
+    {
+      "question_type_id": "mcq_single",
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "متن سؤال",
+        "image_path": null,
+        "meta": {
+          "layout": "multiple_choice",
+          "question_mode": "convergent",
+          "min_selections": 1,
+          "max_selections": 1
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "متن سؤال",
+        "options": [
+          { "id": "option-1", "label": "گزینه اول" },
+          { "id": "option-2", "label": "گزینه دوم" },
+          { "id": "option-3", "label": "گزینه سوم" },
+          { "id": "option-4", "label": "گزینه چهارم" }
+        ],
+        "correct_option_ids": ["option-2"],
+        "order": 1,
+        "is_required": true
+      }
+    },
+    {
+      "question_type_id": "open_question",
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "اگر جای شخصیت اصلی داستان بودی چه کاری انجام می‌دادی؟",
+        "image_path": null,
+        "meta": {
+          "layout": "question",
+          "question_mode": "divergent",
+          "answer_count": 1,
+          "max_words_per_answer": 120,
+          "max_characters_per_answer": null,
+          "answer_placeholders": ["پاسخت را اینجا بنویس..."]
+        }
+      },
+      "exercise": null
+    },
+    {
+      "question_type_id": "mcq_multi",
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "کدام احساس‌ها با رفتار شخصیت داستان هماهنگ هستند؟",
+        "image_path": null,
+        "meta": {
+          "layout": "multiple_choice",
+          "question_mode": "convergent",
+          "min_selections": 1,
+          "max_selections": 3
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "کدام احساس‌ها با رفتار شخصیت داستان هماهنگ هستند؟",
+        "options": [
+          { "id": "curious", "label": "کنجکاو" },
+          { "id": "excited", "label": "هیجان‌زده" },
+          { "id": "afraid", "label": "ترسیده" },
+          { "id": "angry", "label": "عصبانی" }
+        ],
+        "correct_option_ids": ["curious", "excited"],
+        "order": 1,
+        "is_required": true
+      }
+    },
+    {
+      "question_type_id": "image_mcq",
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال تصویری",
+        "text": "سه تصویر مرتبط با داستان را انتخاب کن.",
+        "image_path": null,
+        "meta": {
+          "layout": "image_multiple_choice",
+          "question_mode": "convergent",
+          "min_selections": 3,
+          "max_selections": 3
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "سه تصویر مرتبط با داستان را انتخاب کن.",
+        "options": [
+          {
+            "id": "image-1",
+            "image_path": "images/generated/image-1.png",
+            "alt": "توضیح تصویر اول"
+          },
+          {
+            "id": "image-2",
+            "image_path": "images/generated/image-2.png",
+            "alt": "توضیح تصویر دوم"
+          },
+          {
+            "id": "image-3",
+            "image_path": "images/generated/image-3.png",
+            "alt": "توضیح تصویر سوم"
+          },
+          {
+            "id": "image-4",
+            "image_path": "images/generated/image-4.png",
+            "alt": "توضیح تصویر چهارم"
+          }
+        ],
+        "correct_option_ids": ["image-1", "image-2", "image-3"],
+        "order": 1,
+        "is_required": true
+      }
+    }
+  ]
+}

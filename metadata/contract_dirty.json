@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "exercises": [
+    {
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "متن سؤال",
+        "image_path": null,
+        "meta": {
+          "layout": "multiple_choice",
+          "min_selections": 1,
+          "max_selections": 1
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "متن سؤال",
+        "options": [
+          {
+            "id": "option-1",
+            "label": "گزینه اول"
+          },
+          {
+            "id": "option-2",
+            "label": "گزینه دوم"
+          },
+          {
+            "id": "option-3",
+            "label": "گزینه سوم"
+          },
+          {
+            "id": "option-4",
+            "label": "گزینه چهارم"
+          }
+        ],
+        "correct_option_ids": [
+          "option-2"
+        ],
+        "order": 1,
+        "is_required": true
+      }
+    }
+  ]
+}
+
+تشریحی
+{
+  "schema_version": "1.0",
+  "exercises": [
+    {
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "اگر جای شخصیت اصلی داستان بودی چه کاری انجام می‌دادی؟",
+        "image_path": null,
+        "meta": {
+          "layout": "question",
+          "answer_count": 1,
+          "max_words_per_answer": 120,
+          "max_characters_per_answer": null,
+          "answer_placeholders": [
+            "پاسخت را اینجا بنویس..."
+          ]
+        }
+      },
+      "exercise": null
+    }
+  ]
+}
+چند اتخابی متنی:
+{
+  "schema_version": "1.0",
+  "exercises": [
+    {
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال",
+        "text": "کدام احساس‌ها با رفتار شخصیت داستان هماهنگ هستند؟",
+        "image_path": null,
+        "meta": {
+          "layout": "multiple_choice",
+          "min_selections": 1,
+          "max_selections": 3
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "کدام احساس‌ها با رفتار شخصیت داستان هماهنگ هستند؟",
+        "options": [
+          {
+            "id": "curious",
+            "label": "کنجکاو"
+          },
+          {
+            "id": "excited",
+            "label": "هیجان‌زده"
+          },
+          {
+            "id": "afraid",
+            "label": "ترسیده"
+          },
+          {
+            "id": "angry",
+            "label": "عصبانی"
+          }
+        ],
+        "correct_option_ids": [
+          "curious",
+          "excited"
+        ],
+        "order": 1,
+        "is_required": true
+      }
+    }
+  ]
+}
+تصویری:
+{
+  "schema_version": "1.0",
+  "exercises": [
+    {
+      "story_page": {
+        "type": "exercise",
+        "title": "سؤال تصویری",
+        "text": "سه تصویر مرتبط با داستان را انتخاب کن.",
+        "image_path": null,
+        "meta": {
+          "layout": "image_multiple_choice",
+          "min_selections": 3,
+          "max_selections": 3
+        }
+      },
+      "exercise": {
+        "type": "mcq",
+        "question": "سه تصویر مرتبط با داستان را انتخاب کن.",
+        "options": [
+          {
+            "id": "image-1",
+            "image_path": "images/generated/image-1.png",
+            "alt": "توضیح تصویر اول"
+          },
+          {
+            "id": "image-2",
+            "image_path": "images/generated/image-2.png",
+            "alt": "توضیح تصویر دوم"
+          },
+          {
+            "id": "image-3",
+            "image_path": "images/generated/image-3.png",
+            "alt": "توضیح تصویر سوم"
+          },
+          {
+            "id": "image-4",
+            "image_path": "images/generated/image-4.png",
+            "alt": "توضیح تصویر چهارم"
+          }
+        ],
+        "correct_option_ids": [
+          "image-1",
+          "image-2",
+          "image-3"
+        ],
+        "order": 1,
+        "is_required": true
+      }
+    }
+  ]
+}
