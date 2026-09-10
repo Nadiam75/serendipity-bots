@@ -72,6 +72,14 @@ class BotChatRequest(BaseModel):
         max_length=20000,
         description="Optional extra instructions merged into the bot system prompt.",
     )
+    image_description: str | None = Field(
+        default=None,
+        max_length=20000,
+        description=(
+            "Optional text description of the image shown to the child. "
+            "When set, merged into the bot context (Laravel sends this; model does not fetch the image)."
+        ),
+    )
     model: str | None = Field(
         default=None,
         description="Upstream model id. Falls back to server default if omitted.",
@@ -217,6 +225,14 @@ class AssessRequest(BaseModel):
         max_length=20000,
         description="Optional extra instructions for this assessment (appended to the user message).",
     )
+    image_description: str | None = Field(
+        default=None,
+        max_length=20000,
+        description=(
+            "Optional text description of the image shown with the question. "
+            "When set, appended to the assess context."
+        ),
+    )
     model: str | None = Field(
         default=None,
         description="Upstream model id. Falls back to server default if omitted.",
@@ -331,6 +347,14 @@ class GenerateExercisesRequest(BaseModel):
         max_length=20000,
         description="Optional extra generation instructions.",
     )
+    image_description: str | None = Field(
+        default=None,
+        max_length=20000,
+        description=(
+            "Optional text description of a related image. "
+            "When set, appended to the generation context."
+        ),
+    )
     model: str | None = Field(
         default=None,
         description="Upstream model id. Falls back to server default if omitted.",
@@ -379,6 +403,14 @@ class FunFactRequest(BaseModel):
         default=None,
         max_length=20000,
         description="Optional extra instructions for fact generation.",
+    )
+    image_description: str | None = Field(
+        default=None,
+        max_length=20000,
+        description=(
+            "Optional text description of a related image. "
+            "When set, appended to the fun-fact context."
+        ),
     )
     model: str | None = Field(
         default=None,

@@ -35,6 +35,14 @@ def build_fun_fact_user_prompt(body: FunFactRequest) -> str:
                 "",
             ]
         )
+    if body.image_description and body.image_description.strip():
+        lines.extend(
+            [
+                "توضیح تصویر:",
+                body.image_description.strip(),
+                "",
+            ]
+        )
     lines.extend(
         [
             "علایق کودک:",

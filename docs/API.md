@@ -191,6 +191,7 @@ Your backend sends the **current** user message in `message` and **prior** turns
 | Field | Type | Description |
 |-------|------|-------------|
 | `user_prompt` | string | Extra instructions merged into the bot system prompt |
+| `image_description` | string | Optional image caption/description from Laravel; merged into bot context when present |
 | `model` | string | Upstream model id (default from server env) |
 | `max_output_tokens` | int | Cap on generated tokens |
 

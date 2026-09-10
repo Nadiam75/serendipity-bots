@@ -28,6 +28,14 @@ def build_assess_user_prompt(body: AssessRequest) -> str:
                 "",
             ]
         )
+    if body.image_description and body.image_description.strip():
+        lines.extend(
+            [
+                "توضیح تصویر:",
+                body.image_description.strip(),
+                "",
+            ]
+        )
     lines.extend(
         [
             "سؤال:",

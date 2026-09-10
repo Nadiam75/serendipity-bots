@@ -292,6 +292,8 @@ async def bot_chat(bot_id: str, body: BotChatRequest) -> BotChatResponse:
     instructions = bot.instructions
     if body.user_prompt and body.user_prompt.strip():
         instructions = f"{instructions}\n\nدستورالعمل اضافی:\n{body.user_prompt.strip()}"
+    if body.image_description and body.image_description.strip():
+        instructions = f"{instructions}\n\nتوضیح تصویر:\n{body.image_description.strip()}"
 
     trimmed = trim_history(body.history, max_turns=settings.max_history_turns)
     history_turns_used = (len(trimmed) + 1) // 2

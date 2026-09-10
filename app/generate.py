@@ -147,6 +147,14 @@ def build_generate_user_prompt(body: GenerateExercisesRequest) -> str:
                 "",
             ]
         )
+    if body.image_description and body.image_description.strip():
+        lines.extend(
+            [
+                "توضیح تصویر:",
+                body.image_description.strip(),
+                "",
+            ]
+        )
     lines.extend(
         [
             f"نوع سؤال (question_mode): {body.question_mode}",

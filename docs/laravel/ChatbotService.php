@@ -15,8 +15,13 @@ class ChatbotService
     /** Prior turns to send to Python (matches MAX_HISTORY_TURNS on the API). */
     private const MAX_HISTORY_TURNS = 20;
 
-    public function chat(string $botId, string $message, array $history, ?string $userPrompt = null): array
-    {
+    public function chat(
+        string $botId,
+        string $message,
+        array $history,
+        ?string $userPrompt = null,
+        ?string $imageDescription = null,
+    ): array {
         if (! in_array($botId, self::ALLOWED_BOTS, true)) {
             throw new \InvalidArgumentException("Unknown bot_id: {$botId}");
         }
@@ -28,7 +33,8 @@ class ChatbotService
                 'message' => $message,
                 'history' => $history,
                 'user_prompt' => $userPrompt,
-            ], fn ($v) => $v !== null));
+                'image_description' => $imageDescription,
+            ], fn ($v) => $v !== null && $v !== ''));
 
         $response->throw();
 

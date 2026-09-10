@@ -46,6 +46,7 @@ class ChatController extends Controller
         $data = $request->validate([
             'message' => ['required', 'string', 'min:1', 'max:20000'],
             'user_prompt' => ['nullable', 'string', 'max:20000'],
+            'image_description' => ['nullable', 'string', 'max:20000'],
         ]);
 
         $session = ChatSession::query()
@@ -65,6 +66,7 @@ class ChatController extends Controller
             message: $data['message'],
             history: $history,
             userPrompt: $data['user_prompt'] ?? null,
+            imageDescription: $data['image_description'] ?? null,
         );
 
         ChatMessage::insert([
